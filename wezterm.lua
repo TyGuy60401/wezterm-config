@@ -16,11 +16,17 @@ config.window_padding = {
 }
 
 
+local launch_menu = {}
 
--- default terminal program
+-- powershell if on windows
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-    config.default_prog = {'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe'}
+    config.default_prog = {'powershell.exe'}
+    table.insert(launch_menu, {
+        label = 'Powershell',
+        args = {'powershell.exe', '-No7ogo' },
+    })
 end
 
+config.launch_menu = launch_menu
 
 return config
