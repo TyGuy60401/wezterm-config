@@ -1,3 +1,5 @@
 local/**/*
+!local/local_example.lua
+
 imgs/cycle/*
 imgs/temp/*

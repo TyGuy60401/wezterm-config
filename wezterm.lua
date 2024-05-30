@@ -14,6 +14,10 @@ local function load_local_config()
 end
 
 -- colorscheme and font
+config.command_palette_font_size = 12
+config.window_frame = {
+    font_size = 9,
+}
 
 
 -- window size/padding
