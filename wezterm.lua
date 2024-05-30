@@ -18,9 +18,9 @@ end
 
 -- window size/padding
 config.window_padding = {
-    left = 2,
-    right = 2,
-    top = 2,
+    left = 0,
+    right = 0,
+    top = 0,
     bottom = 5,
 }
 
@@ -28,9 +28,9 @@ config.window_padding = {
 config.window_background_image = "C:/Users/USYEW/.config/wezterm/imgs/Trish-and-Ty-053.jpg"
 
 config.window_background_image_hsb = {
-    brightness = 0.05,
+    brightness = 0.12,
     hue = 1.0,
-    saturation = 0.8,
+    saturation = 0.6,
 }
 config.text_background_opacity = 0.5
 
