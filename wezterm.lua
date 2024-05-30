@@ -8,12 +8,24 @@ config.font = wezterm.font("CaskaydiaMono Nerd Font Propo", {weight="Regular", s
 config.font_size = 10.5
 
 
+-- window size/padding
 config.window_padding = {
     left = 2,
     right = 2,
     top = 2,
     bottom = 5,
 }
+
+-- backround image
+-- config.window_background_image = "C:/Users/USYEW/.config/wezterm/imgs/Trish-and-Ty-053.jpg"
+
+config.window_background_image_hsb = {
+    brightness = 0.1,
+    hue = 1.0,
+    saturation = 1.0,
+}
+config.text_background_opacity = 0.95
+
 
 
 local launch_menu = {}
