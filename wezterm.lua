@@ -14,7 +14,6 @@ local function load_local_config()
 end
 
 -- colorscheme and font
-config.font_size = 10.5
 
 
 -- window size/padding
@@ -26,14 +25,14 @@ config.window_padding = {
 }
 
 -- backround image
--- config.window_background_image = "C:/Users/USYEW/.config/wezterm/imgs/Trish-and-Ty-053.jpg"
+config.window_background_image = "C:/Users/USYEW/.config/wezterm/imgs/Trish-and-Ty-053.jpg"
 
 config.window_background_image_hsb = {
-    brightness = 0.1,
+    brightness = 0.05,
     hue = 1.0,
-    saturation = 1.0,
+    saturation = 0.8,
 }
-config.text_background_opacity = 0.95
+config.text_background_opacity = 0.5
 
 
 
