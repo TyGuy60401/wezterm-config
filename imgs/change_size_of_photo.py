@@ -6,17 +6,26 @@ def main(argv):
     fout_name = argv[2] if len(argv) > 2 else 'img_out.png'
     position = argv[3] if len(argv) > 3 else 'center'
     position = position if position in ['top', 'bottom', 'center', 'left', 'right'] else 'center'
+    x_dim = int(argv[4]) if len(argv) > 4 else 1920
+    y_dim = int(argv[5]) if len(argv) > 5 else 1080
 
     img = Image.open(fin_name)
     aspect = img.size[0] / img.size[1]
-    print(aspect)
+    print("CURRENT IMAGE ASPECT RATIO:", aspect)
 
+    target_aspect = x_dim / y_dim
+    print("TARGET IMAGE ASPECT RATIO:", target_aspect)
 
-    x_proportion = max(aspect / (16/9), 1)
-    y_proportion = min(aspect / (16/9), 1)
+    x_proportion = min(target_aspect / aspect, 1)
+    y_proportion = min(aspect / target_aspect, 1)
+
+    print("PROPORTIONS:", (x_proportion, y_proportion))
 
     new_width = int(img.size[0] * x_proportion)
     new_height = int(img.size[1] * y_proportion)
+
+    print("NEW DIMENSIONS BEFORE RESIZE:", (new_width, new_height))
+
 
     left = 0
     top = 0
@@ -34,11 +43,9 @@ def main(argv):
 
     crop = (left, top, left + new_width, top + new_height)
 
-    print(img.size)
-    # print((new_x, new_y))
 
     img_cropped = img.crop(crop)
-    img_cropped = img_cropped.resize((1920, 1080))
+    img_cropped = img_cropped.resize((x_dim, y_dim))
     img_cropped.save(fout_name)
 
 
