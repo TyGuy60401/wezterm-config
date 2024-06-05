@@ -1,9 +1,9 @@
 local wezterm = require('wezterm')
 local state_manager = {}
 
-local state_file = "C:/Users/USYEW/.config/wezterm/local/state.json"
+-- local state_file = "C:/Users/tydav/.config/wezterm/local/state.json"
 
-function state_manager.read_state()
+function state_manager.read_state(state_file)
     local f = io.open(state_file, "r")
     if f then
         local lines = f:lines()
@@ -26,7 +26,7 @@ function state_manager.read_state()
     return {}
 end
 
-function state_manager.write_state(state)
+function state_manager.write_state(state, state_file)
     local f = io.open(state_file, 'w')
     if f then
         for k, v in pairs(state) do

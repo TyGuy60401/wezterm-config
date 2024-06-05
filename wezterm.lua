@@ -5,11 +5,14 @@ local state_manager = require('state_manager')
 local config = wezterm.config_builder()
 
 -- get the local config and load it if it's present
+local state_file
 local function load_local_config()
     local local_config_path = wezterm.config_dir .. '/local/init.lua'
-    local local_config, err = loadfile(local_config_path)
-    if local_config then
-        return local_config()
+    local local_result, err = loadfile(local_config_path)
+    if local_result then
+        local local_result_tab = local_result()
+        state_file = local_result_tab.state_file
+        return local_result_tab.local_config
     else
         wezterm.log_info("No local configuration was found, or there was an error loading it: " .. (err or "unknown error"))
         return {}
@@ -36,10 +39,10 @@ config.initial_cols = 100
 
 -- custom commands for the command palette
 local function toggle_background(win, pane)
-    local state = state_manager.read_state()
+    local state = state_manager.read_state(state_file)
 
     state.use_background_image = not state.use_background_image
-    state_manager.write_state(state)
+    state_manager.write_state(state, state_file)
     win:perform_action(act.ReloadConfiguration, pane)
 end
 
