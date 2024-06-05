@@ -1,7 +1,10 @@
 local wezterm = require('wezterm')
+local act = wezterm.action
+local state_manager = require('state_manager')
 
 local config = wezterm.config_builder()
 
+-- get the local config and load it if it's present
 local function load_local_config()
     local local_config_path = wezterm.config_dir .. '/local/init.lua'
     local local_config, err = loadfile(local_config_path)
@@ -27,18 +30,49 @@ config.window_padding = {
     top = 0,
     bottom = 5,
 }
+config.initial_rows = 24
+config.initial_cols = 100
 
--- backround image
-config.window_background_image = "C:/Users/USYEW/.config/wezterm/imgs/Trish-and-Ty-053.jpg"
 
-config.window_background_image_hsb = {
-    brightness = 0.12,
-    hue = 1.0,
-    saturation = 0.6,
+-- custom commands for the command palette
+local function toggle_background(win, pane)
+    local state = state_manager.read_state()
+
+    state.use_background_image = not state.use_background_image
+    state_manager.write_state(state)
+    win:perform_action(act.ReloadConfiguration, pane)
+end
+
+local new_commands = {
+    {
+        brief = 'Rename this tab',
+        icon = 'md_rename_box',
+
+        action = act.PromptInputLine {
+            description = 'Enter new name for tab',
+            action = wezterm.action_callback(function(window, pane_2, line)
+                if line then
+                    window:active_tab():set_title(line)
+                    window:toast_notification('wezterm', 'tab was renamed', nil, 4000)
+                end
+            end),
+        }
+    },
+    {
+        brief = 'Toggle background image',
+        icon = 'md_image_area',
+
+        action = wezterm.action_callback(toggle_background),
+    },
 }
-config.text_background_opacity = 0.5
 
+wezterm.on('augment-command-palette', function(win, pane)
+    return new_commands
+end)
 
+-- config.keys = {
+--     {key = "H", mods="CTRL|"}
+-- }
 
 local launch_menu = {}
 
