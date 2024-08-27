@@ -1,5 +1,7 @@
 local/**/*
 !local/local_example.lua
+!local/local_work_example.lua
+!local/state_example.json
 
 imgs/cycle/*
 imgs/temp/*
